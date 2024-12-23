@@ -28,7 +28,7 @@ import {
 } from "@/components/ui/popover"
 import { Textarea } from "@/components/ui/textarea"
 
-export default function InputForm() {
+export default function CGMForm() {
   const form = useForm<z.infer<typeof CGMSchema>>({
     resolver: zodResolver(CGMSchema),
     defaultValues: {
@@ -63,7 +63,9 @@ export default function InputForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="bg-white bg-opacity-40 px-8 py-10 rounded space-y-2 text-white w-2/3">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="bg-white bg-opacity-40 px-8 py-10 rounded space-y-4 text-white w-2/3">
+        <h2 className="font-light pb-8 text-3xl">Activate your <u className="font-bold">Free</u> Diabetes Benefits Membership</h2>
+        <p className="font-normal pb-4 text-base">Enter your member information to register and access your benefits today.</p>
         <FormField
           control={form.control}
           name="submitter"
@@ -161,7 +163,7 @@ export default function InputForm() {
                 <PopoverTrigger asChild>
                   <FormControl>
                     <Button
-                      className={cn("w-[240px] pl-3 text-left font-normal", !field.value && "text-muted-foreground")}
+                      className={cn("font-normal text-black w-full", !field.value && "text-muted-foreground")}
                       variant={"outline"}
                     >
                       {
@@ -171,10 +173,10 @@ export default function InputForm() {
                     </Button>
                   </FormControl>
                 </PopoverTrigger>
-                <PopoverContent className="w-auto p-0" align="start">
+                <PopoverContent align="start" className="p-0 w-auto">
                   <Calendar
+                    captionLayout="dropdown"
                     disabled={(date) => date > new Date() || date < new Date("1900-01-01")}
-                    initialFocus
                     mode="single"
                     onSelect={field.onChange}
                     selected={field.value}
@@ -289,6 +291,7 @@ export default function InputForm() {
             </FormItem>
           )}
         />
+        <Button size="cgm" type="submit" variant="cgm">Activate Membership</Button>
         <FormField
           control={form.control}
           name="prescription"
@@ -302,7 +305,7 @@ export default function InputForm() {
             </FormItem>
           )}
         />
-        <Button type="submit">Activate Membership</Button>
+        <Button size="cgm" type="button" variant="cgm">Upload Prescription</Button>
       </form>
     </Form>
   )
